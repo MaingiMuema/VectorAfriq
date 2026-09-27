@@ -1,0 +1,36 @@
+# dependencies
+node_modules
+.pnp
+.pnp.*
+
+# next.js build artifacts
+.next/
+out/
+build/
+
+# build archives
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+
+# local Freebuff / editor data
+.freebuff/
+
+# environment files (contain secrets — never commit)
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# typescript
+*.tsbuildinfo
+
+# logs
+*.log
+
+# misc
+.vscode/
+.idea/

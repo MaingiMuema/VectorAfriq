@@ -1,0 +1,74 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# python TTS venv (npm run tts:setup)
+/.tts-venv/
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/.next-vfy/
+/.next-prod2/
+/out/
+
+# production
+/build
+/public
+
+/images_service/public
+/images_service/node_modules
+/images_service/uploads
+
+# videos_service
+/videos_service/node_modules
+/videos_service/uploads
+
+# archives
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+
+# video files
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.webm
+*.wmv
+*.flv
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# seo agent config
+.seo-agent/
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

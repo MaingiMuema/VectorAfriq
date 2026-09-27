@@ -1,0 +1,534 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.blog-content {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #374151;
+}
+
+.blog-content > *:first-child {
+  margin-top: 0;
+}
+
+.blog-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.blog-content p {
+  margin: 1.5em 0;
+}
+
+.blog-content h1 {
+  font-size: 2.25em;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 2em 0 0.75em;
+  color: #111827;
+  letter-spacing: -0.02em;
+}
+
+.blog-content h2 {
+  font-size: 1.75em;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 1.75em 0 0.75em;
+  color: #1f2937;
+  letter-spacing: -0.01em;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.blog-content h3 {
+  font-size: 1.4em;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 1.5em 0 0.5em;
+  color: #374151;
+}
+
+.blog-content a {
+  color: #468AD1;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.blog-content a:hover {
+  border-bottom-color: #468AD1;
+}
+
+.blog-content ul {
+  list-style-type: disc;
+  padding-left: 1.75em;
+  margin: 1.5em 0;
+}
+
+.blog-content ol {
+  list-style-type: decimal;
+  padding-left: 1.75em;
+  margin: 1.5em 0;
+}
+
+.blog-content li {
+  margin: 0.5em 0;
+  padding-left: 0.25em;
+}
+
+.blog-content li::marker {
+  color: #468AD1;
+}
+
+.blog-content ul[data-type="taskList"] {
+  list-style: none;
+  padding-left: 0;
+}
+
+.blog-content ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-left: 0;
+}
+
+.blog-content ul[data-type="taskList"] li > label {
+  flex-shrink: 0;
+}
+
+.blog-content ul[data-type="taskList"] li > label > input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.25rem;
+  cursor: pointer;
+  accent-color: #468AD1;
+  border-radius: 4px;
+}
+
+.blog-content ul[data-type="taskList"] li[data-checked="true"] > div {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid #468AD1;
+  margin: 2em 0;
+  padding: 1em 0 1em 1.5em;
+  background: linear-gradient(to right, #eaf3fb, transparent);
+  border-radius: 0 0.75rem 0.75rem 0;
+  font-style: italic;
+  color: #4b5563;
+  font-size: 1.1em;
+}
+
+.blog-content blockquote p {
+  margin: 0.5em 0;
+}
+
+.blog-content pre {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  color: #e5e7eb;
+  font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  margin: 2em 0;
+  overflow-x: auto;
+  font-size: 0.9em;
+  line-height: 1.7;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.blog-content pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: inherit;
+}
+
+.blog-content code {
+  background: #eaf3fb;
+  color: #468AD1;
+  padding: 0.2em 0.5em;
+  border-radius: 0.375rem;
+  font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+.blog-content hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+  margin: 3em 0;
+}
+
+.blog-content s {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.blog-content sub {
+  font-size: 0.75em;
+  vertical-align: sub;
+}
+
+.blog-content sup {
+  font-size: 0.75em;
+  vertical-align: super;
+}
+
+.blog-content table {
+  border-collapse: collapse;
+  margin: 2em 0;
+  width: 100%;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.blog-content td,
+.blog-content th {
+  border: 1px solid #e5e7eb;
+  padding: 0.875rem 1rem;
+  text-align: left;
+}
+
+.blog-content th {
+  background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
+  font-weight: 600;
+  color: #374151;
+}
+
+.blog-content tr:nth-child(even) td {
+  background-color: #fafafa;
+}
+
+.blog-content tr:hover td {
+  background-color: #f0f9ff;
+}
+
+.blog-content [style*="text-align: left"] {
+  text-align: left;
+}
+
+.blog-content [style*="text-align: center"] {
+  text-align: center;
+}
+
+.blog-content [style*="text-align: right"] {
+  text-align: right;
+}
+
+.blog-content [style*="text-align: justify"] {
+  text-align: justify;
+}
+
+.blog-content mark {
+  border-radius: 0.25em;
+  padding: 0.15em 0.35em;
+  background-color: #fef08a;
+}
+
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 2em 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.blog-content strong,
+.blog-content b {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.blog-content em,
+.blog-content i {
+  font-style: italic;
+}
+
+.blog-content u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blog-content ::selection {
+  background: rgba(70, 138, 209, 0.2);
+}
+
+@media (max-width: 768px) {
+  .blog-content {
+    font-size: 1rem;
+  }
+
+  .blog-content h1 {
+    font-size: 1.75em;
+  }
+
+  .blog-content h2 {
+    font-size: 1.5em;
+  }
+
+  .blog-content h3 {
+    font-size: 1.25em;
+  }
+
+  .blog-content blockquote {
+    padding-left: 1em;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .blog-content pre {
+    padding: 1rem;
+    font-size: 0.85em;
+  }
+
+  .blog-content table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* Compact variant of .blog-content for embedded contexts (e.g. the
+   neighbourhood guide accordion on search results pages). Keeps the exact
+   WYSIWYG editor styling while scaling the type down for smaller containers. */
+.blog-content-compact {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+}
+
+.blog-content-compact h1 {
+  font-size: 1.65em;
+}
+
+.blog-content-compact h2 {
+  font-size: 1.35em;
+}
+
+.blog-content-compact h3 {
+  font-size: 1.15em;
+}
+
+.blog-content-compact blockquote {
+  font-size: 1em;
+}
+
+.blog-content-compact pre {
+  font-size: 0.85em;
+}
+
+.blog-content-compact img {
+  margin: 1.5em 0;
+}
+
+@media (max-width: 768px) {
+  .blog-content-compact {
+    font-size: 0.9rem;
+  }
+
+  .blog-content-compact h1 {
+    font-size: 1.45em;
+  }
+
+  .blog-content-compact h2 {
+    font-size: 1.25em;
+  }
+
+  .blog-content-compact h3 {
+    font-size: 1.1em;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  @keyframes wave {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  @keyframes scan {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(280px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .animate-wave {
+    animation: wave 1.5s ease-in-out infinite;
+  }
+  
+  .animate-scan {
+    animation: scan 2s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes kenBurns {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.08);
+    }
+  }
+
+  .animate-ken-burns {
+    animation: kenBurns 20s ease-in-out infinite alternate;
+  }
+}
+
+/* ═══════════════ Service Page Theme System ═══════════════
+   Themed by CSS custom properties set per-service at runtime
+   (--pf-primary, --pf-surface, ...). See services-config.ts themes. */
+
+@layer components {
+  .pf-bg-primary {
+    background-color: var(--pf-primary);
+  }
+
+  .pf-btn-primary {
+    background-color: var(--pf-primary);
+    color: #fff;
+    box-shadow: 0 10px 15px -3px var(--pf-primary-shadow), 0 4px 6px -4px var(--pf-primary-shadow);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .pf-btn-primary:hover {
+    background-color: var(--pf-primary-dark);
+    box-shadow: 0 20px 25px -5px var(--pf-primary-shadow-strong), 0 8px 10px -6px var(--pf-primary-shadow-strong);
+  }
+
+  /* Static tinted chip (icon badge) */
+  .pf-chip-static {
+    background-color: var(--pf-primary-soft);
+    color: var(--pf-primary);
+  }
+
+  /* Chip that fills with the primary color when a parent .group is hovered */
+  .pf-chip {
+    background-color: var(--pf-primary-soft);
+    color: var(--pf-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .group:hover .pf-chip {
+    background-color: var(--pf-primary);
+    color: #fff;
+  }
+
+  /* Dark-surface variants (deep tint of the service color) */
+  .pf-chip-dark {
+    background-color: var(--pf-surface-soft-strong);
+    color: var(--pf-surface);
+  }
+
+  .pf-badge-dark {
+    background-color: var(--pf-surface-soft);
+    color: var(--pf-surface);
+  }
+
+  .pf-step-num {
+    background-color: var(--pf-surface);
+    color: #fff;
+  }
+
+  .pf-panel-dark {
+    background-image: var(--pf-gradient-dark);
+    color: #fff;
+  }
+
+  .pf-panel-cta {
+    background-image: var(--pf-gradient-cta);
+    color: #fff;
+  }
+
+  .pf-underline {
+    background-color: var(--pf-primary-soft-strong);
+  }
+
+  .pf-input:focus {
+    border-color: var(--pf-primary);
+    --tw-ring-color: var(--pf-primary-ring);
+  }
+
+  .pf-link-primary {
+    color: var(--pf-primary);
+    transition: color 0.2s ease;
+  }
+
+  .pf-link-primary:hover {
+    color: var(--pf-primary-dark);
+  }
+
+  .pf-card-title {
+    transition: color 0.3s ease;
+  }
+
+  .group:hover .pf-card-title {
+    color: var(--pf-primary);
+  }
+}
+
+/* Partners Carousel Animation */
+@keyframes partners-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 3));
+  }
+}
+
+.partners-track {
+  animation: partners-scroll 30s linear infinite;
+  width: max-content;
+}
+
+.group\/carousel:hover .partners-track {
+  animation-play-state: paused;
+}

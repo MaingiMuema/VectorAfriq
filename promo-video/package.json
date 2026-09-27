@@ -1,0 +1,27 @@
+{
+  "name": "vectorafriqproperties-promo-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "60-second promotional marketing video for vectorafriqproperties.co.ke built with Remotion + free TTS",
+  "scripts": {
+    "dev": "remotion studio",
+    "prep": "node scripts/gen-tts.mjs && node scripts/gen-music.mjs && node scripts/timings.mjs",
+    "render": "remotion render vectorafriq-promo out/vectorafriq-promo.mp4",
+    "render:vertical": "remotion render vectorafriq-promo-vertical out/vectorafriq-promo-vertical.mp4",
+    "render:job": "node scripts/render-job.mjs",
+    "tts:setup": "python3 -m venv .tts-venv && .tts-venv/bin/pip install --quiet edge-tts"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.506",
+    "@remotion/fonts": "^4.0.506",
+    "@remotion/renderer": "^4.0.506",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "remotion": "^4.0.506"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "typescript": "5.7.2"
+  }
+}
