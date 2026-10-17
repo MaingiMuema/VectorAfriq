@@ -539,25 +539,70 @@ export async function GET(req: NextRequest) {
     }
 
     const searchParams = req.nextUrl.searchParams;
-    const page = parseInt(searchParams.get("page") || "1");
-    const limit = parseInt(searchParams.get("limit") || "10");
-    const status = searchParams.get("status") as PropertyStatus | null;
-    const search = searchParams.get("search");
+    const rawPage = parseInt(searchParams.get("page") || "1", 10);
+    const rawLimit = parseInt(searchParams.get("limit") || "10", 10);
+    const page = Number.isFinite(rawPage) && rawPage > 0 ? Math.floor(rawPage) : 1;
+    const limit = Number.isFinite(rawLimit) && rawLimit > 0 ? Math.min(Math.floor(rawLimit), 100) : 10;
+    const statusParam = (searchParams.get("status") || "").toUpperCase() || null;
+    const search = (searchParams.get("search") || "").trim() || null;
+    const typeParam = (searchParams.get("type") || "").trim() || null;
+    const featuredParam = searchParams.get("featured");
+    const minPriceRaw = searchParams.get("minPrice");
+    const maxPriceRaw = searchParams.get("maxPrice");
+    const minPrice = minPriceRaw !== null ? Number(minPriceRaw) : NaN;
+    const maxPrice = maxPriceRaw !== null ? Number(maxPriceRaw) : NaN;
 
     const skip = (page - 1) * limit;
 
-    // Build the WHERE clause
-    const whereClause = ["userId = ?"];
+    // Build the WHERE clause — scoped to the signed-in agent
+    const whereClause = ["p.userId = ?"];
     const params: DbQueryParam[] = [session.user.id];
 
-    if (status) {
-      whereClause.push("status = ?");
-      params.push(status);
+    // UI sends active/pending/expired (or legacy AVAILABLE/...); map to DB values.
+    if (statusParam) {
+      if (statusParam === "ACTIVE" || statusParam === "AVAILABLE") {
+        whereClause.push("p.status = 'AVAILABLE'");
+      } else if (statusParam === "PENDING" || statusParam === "SOLD" || statusParam === "RENTED") {
+        if (statusParam === "PENDING") {
+          whereClause.push("p.status IN ('SOLD', 'RENTED', 'PENDING')");
+        } else {
+          whereClause.push("p.status = ?");
+          params.push(statusParam);
+        }
+      } else if (statusParam === "EXPIRED") {
+        whereClause.push("p.status = 'EXPIRED'");
+      } else {
+        whereClause.push("p.status = ?");
+        params.push(statusParam);
+      }
+    }
+
+    // "Property Type" dropdown actually carries the property category enum.
+    if (typeParam) {
+      whereClause.push("p.category = ?");
+      params.push(typeParam);
+    }
+
+    if (featuredParam === "true") {
+      whereClause.push("p.featured = true");
+    } else if (featuredParam === "false") {
+      whereClause.push("(p.featured = false OR p.featured IS NULL)");
+    }
+
+    if (Number.isFinite(minPrice) && Number.isFinite(maxPrice) && minPrice >= 0 && maxPrice >= 0) {
+      whereClause.push("p.price BETWEEN ? AND ?");
+      params.push(Math.min(minPrice, maxPrice), Math.max(minPrice, maxPrice));
+    } else if (Number.isFinite(minPrice) && minPrice >= 0) {
+      whereClause.push("p.price >= ?");
+      params.push(minPrice);
+    } else if (Number.isFinite(maxPrice) && maxPrice >= 0) {
+      whereClause.push("p.price <= ?");
+      params.push(maxPrice);
     }
 
     if (search) {
       whereClause.push(
-        "(title LIKE ? OR description LIKE ? OR location LIKE ?)"
+        "(p.title LIKE ? OR p.description LIKE ? OR p.location LIKE ?)"
       );
       const searchTerm = `%${search}%`;
       params.push(searchTerm, searchTerm, searchTerm);
@@ -569,7 +614,7 @@ export async function GET(req: NextRequest) {
     // Query for properties with pagination
     const countQuery = `
       SELECT COUNT(*) as total
-      FROM property
+      FROM property p
       WHERE ${whereClause.join(" AND ")}
     `;
 
@@ -587,7 +632,7 @@ export async function GET(req: NextRequest) {
       query<DbProperty>(propertiesQuery, params),
     ]);
 
-    const total = totalResult[0].total;
+    const total = Number(totalResult[0]?.total ?? 0);
 
     // Format properties and convert image paths to full URLs
     const formattedProperties = properties.map((property) => {
